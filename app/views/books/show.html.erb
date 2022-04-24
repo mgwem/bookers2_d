@@ -28,13 +28,34 @@
               <% end %>
             <% end %>
           </td>
-          <td>コメント数</td>
+          <td>コメント数: <%= @book.book_comments.count %></td>
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
           <% end %>
         </tr>
       </table>
+      <div>
+        <% @book.book_comments.each do |book_comment| %>
+          <%= image_tag book_comment.user.get_profile_image, size:"100x100" %>
+          <%= book_comment.comment %>
+          <% if book_comment.user == current_user %>
+            <!-- link_toに削除機能をつける,コントローラにdestroyを定義 -->
+            <%= link_to 'Destroy', book_book_comment_path(book_comment.book,book_comment), method: :delete, class: "btn btn-sm btn-danger" %>
+          <% end %>
+          <p>
+          <%= link_to user_path(book_comment.user) do %>
+            <%= book_comment.user.name %>
+          <% end %>
+          </p>
+        <% end %>
+      </div>
+      <div>
+        <%= form_with model:[@book,@book_comment] do |f| %>
+          <%= f.text_area:comment %>
+          <%= f.submit "送信" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
