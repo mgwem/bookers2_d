@@ -55,7 +55,7 @@
     </div>
   </nav>
   <% if user_signed_in? %>
-    <div class="container">
+    <div class="container mt-2">
     <!-- 検索フォーム表示 -->
     <%= form_with url: search_path, local: true, method: :get do |f| %>
       <%= f.text_field :word %>
