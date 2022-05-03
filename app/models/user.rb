@@ -33,4 +33,18 @@ class User < ApplicationRecord
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
+
+  def self.looks(seach, word)
+    if search == "perfect_match"
+      @user = User.where("name LIKE?","#{word}")
+    elsif search == "forward_match"
+      @user = User.where("name LIKE?","#{word}%")
+    elsif search == "backward_math"
+      @user = User.where("name LIKE?","%#{word}")
+    elsif seach == "partial_match"
+      @user = User.where("name LIKE?","%#{word}%")
+    else
+      @user = User.all
+    end
+  end
 end
