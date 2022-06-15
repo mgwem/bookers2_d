@@ -8,6 +8,12 @@
     <%= f.text_area :body, class: 'form-control book_body' %>
   </div>
   <div class="form-group">
+    <%= f.label :tag %>
+    <p>スペースを入力することで複数のタグを付けることができます</p>
+    <p>例：ミステリー 恋愛</p>
+    <%= f.text_field :tag_name, value: @tag_list, class: 'form-control book_body' %>
+  </div>
+  <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
   </div>
 <% end %>

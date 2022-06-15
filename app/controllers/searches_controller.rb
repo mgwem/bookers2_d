@@ -7,8 +7,11 @@ class SearchesController < ApplicationController
     @search = params[:search]
     if @range == "User"
       @users = User.looks(@search, @word)
-    else
+    elsif @range == "Book"
       @books = Book.looks(@search, @word)
+    else
+      @tags = Tag.looks(@search, @word)
+      @books = @tags.pluck(:book_id)
     end
   end
 

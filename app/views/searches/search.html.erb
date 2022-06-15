@@ -4,4 +4,7 @@
 <% elsif @range == "Book" %>
   <h2>Books search for "<%= @word %>"</h2>
   <%= render 'books/index', books: @books %>
+<% else %>
+  <h2>Tags search for "<%= @word %>"</h2>
+  <%= render 'books/index', books: @books %>
 <% end %>
