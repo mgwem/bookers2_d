@@ -4,14 +4,15 @@ class Tag < ApplicationRecord
 
   def self.looks(search, word)
     if search == "perfect_match"
-      Tag.where("title LIKE?","#{word}")
+      tags = Tag.where("tag_name LIKE?","#{word}")
     elsif search == "forward_match"
-      Tag.where("title LIKE?","#{word}%")
+      tags = Tag.where("tag_name LIKE?","#{word}%")
     elsif search == "backward_match"
-      Tag.where("title LIKE?","%#{word}")
+      tags = Tag.where("tag_name LIKE?","%#{word}")
     elsif search == "partial_match"
-      Tag.where("title LIKE?","%#{word}%")
+      tags = Tag.where("tag_name LIKE?","%#{word}%")
     end
+    return tags.inject(init = []) {|result, tag| result + tag.books}
   end
 
 end

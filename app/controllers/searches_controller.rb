@@ -11,7 +11,6 @@ class SearchesController < ApplicationController
       @books = Book.looks(@search, @word)
     else
       @tags = Tag.looks(@search, @word)
-      @books = @tags.pluck(:book_id)
     end
   end
 
