@@ -13,22 +13,31 @@
     <p>例：ミステリー 恋愛</p>
     <%= f.text_field :tag_name, value: @tag_list, class: 'form-control book_body' %>
   </div>
-  <div class="form-group" id="star">
+
+  <div class="form-group">
     <%= f.label :rate %>
-    <%= f.hidden_field :rate, :value => 'score' %>
+    <span id="star">
+      <%= f.hidden_field :rate, id: :review_star, class:'form-control' %>
+    </span>
   </div>
+
+  <script>
+  $(document).on('turbolinks:load', function() {
+    // emptyで一度空にしないと星が増え続ける(turbolinks無効の時)
+    $('#star').empty();
+    $('#star').raty({
+      size     : 36,
+      starOff:  '<%= asset_path('star-off.png') %>',
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'book[rate]',
+      half: true,
+    });
+  })
+  </script>
+
   <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
   </div>
 <% end %>
 
-<script>
-  $('#star').raty({
-    size     : 36,
-    starOff:  '<%= asset_path('star-off.png') %>',
-    starOn : '<%= asset_path('star-on.png') %>',
-    starHalf: '<%= asset_path('star-half.png') %>',
-    scoreName: 'book[rate]',
-    half: true,
-  });
-</script>
