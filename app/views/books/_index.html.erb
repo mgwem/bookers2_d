@@ -8,6 +8,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -29,6 +30,18 @@
         </td>
         <td class="favorite_button"><%= render "favorites/btn", book: book %></td>
         <td class="comments-count">コメント数: <%= book.book_comments.count %></td>
+        <td id="star-rate<%= book.id %>"></td>
+        <script>
+          $('#star-rate<%= book.id %>').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn: '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            half: true,
+            readOnly: true,
+            score: <%= book.rate %>,
+          });
+        </script>
       </tr>
     <% end %>
   </tbody>
