@@ -10,7 +10,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.all
+    @books = Book.all.order(created_at: :desc)
     @book = Book.new
   end
 
@@ -54,6 +54,12 @@ class BooksController < ApplicationController
   def tag_search
     @tag = Tag.find(params[:tag_id])
     @books = @tag.books
+  end
+
+  def index_rate
+    @books = Book.all.order(rate: :desc)
+    @book = Book.new
+    render "index.html.erb"
   end
 
   private
